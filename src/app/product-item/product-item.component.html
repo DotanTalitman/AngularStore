@@ -1,4 +1,4 @@
-<div class="box" (click)=select(item.title)>
+<!-- <div class="box" (click)=select(item.title)>
   
       <h1> {{item.title}}</h1>
       <div class="content">
@@ -8,4 +8,16 @@
         </div>
         <div class="price">{{item.price}}</div>
       </div>
-    </div>
+    </div> -->
+
+    <div class="box" (click)=select(item.title)>
+      
+          <h1> {{item.title}}</h1>
+          <div class="content">
+            <img width="100" height="100" src="{{item.img}}"/>
+            <div class="desc">
+              {{item.description}}
+            </div>
+            <div class="price">{{item.price}}</div>
+          </div>
+        </div>
