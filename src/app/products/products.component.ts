@@ -1,3 +1,5 @@
+import { ProdcutsService } from './../services/prodcuts.service';
+import { LoggerService } from './../services/logger.service';
 import { Product } from './../entities/Product';
 import { Observable } from 'rxjs/Rx';
 import { Component, OnInit } from '@angular/core';
@@ -9,15 +11,19 @@ import 'rxjs/add/operator/toPromise';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css'],
+  providers: [LoggerService,ProdcutsService]
 })
 export class ProductsComponent implements OnInit {
-
+//
   productsObservable: Observable<Response>;
   products: Array<Product> = new Array<Product>();
 
-  constructor(private http: Http) {
+  constructor(private http: Http,
+    private logger: LoggerService,private prodcutsService:ProdcutsService) {
+    logger.print("dotan");
 
+    logger.printWithHello("dotan");
     // this.addProdcut(1,
     //   "Galaxy S6 ",
     //   "Black Samsung Galaxy S6 (SM-G920V) 32GB Unlocked Smartphone",
@@ -31,9 +37,9 @@ export class ProductsComponent implements OnInit {
     //   "Samsung Galaxy Note 5 /Note 4/S5-32/16GB-White Gold Blue Unlocke",
     //   900,"note5.jpg")
 
-    this.productsObservable = this
-      .http
-      .get("https://jbmd-store.azurewebsites.net/products")
+    // this.productsObservable = this
+    //   .http
+    //   .get("https://jbmd-store.azurewebsites.net/products")
 
 
     // var promise = this.http
@@ -68,13 +74,21 @@ export class ProductsComponent implements OnInit {
 
   }
 
-  getItems(){
-    this.productsObservable
-    .subscribe(r=>{
-      this.products=r.json();
-    })
+  getItems() {
+    // this.productsObservable
+    //   .subscribe((r: Response) => {
+    //     this.products = r.json();
+    //   })
+    this.prodcutsService
+    .getProdcuts()
+    .subscribe(this.getDataFromResponse.bind(this))
   }
 
+
+  getDataFromResponse(res:Response){
+    console.log("this",this)
+    this.products= res.json();
+  }
 
 
   addProdcut(id, title, desc, price, img): void {

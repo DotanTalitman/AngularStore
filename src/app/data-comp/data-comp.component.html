@@ -1,3 +1,14 @@
-<p>
-  data-comp works!
-</p>
+<button (click)="getProductsWithPromise()" >
+get data with promise
+</button>
+
+<button (click)="getProdcutsWithObservable()" >
+
+get data with observable
+</button>
+
+<button (click)="getProdecutAndAddToPrice()">map</button>
+
+<div *ngFor="let item of products">
+  {{item.title}}
+</div>

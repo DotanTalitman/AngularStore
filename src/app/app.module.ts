@@ -1,3 +1,5 @@
+import { LoggerService } from './services/logger.service';
+import { ProdcutsService } from './services/prodcuts.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
