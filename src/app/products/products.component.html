@@ -2,6 +2,8 @@
   <h1>{{selectedProduct}}</h1>
     <input placeholder="serach..." />
     <hr>
+    <button (click)="getItems()">get Data</button>
+    <hr>
     <app-product-item  (selectItem)='getItem($event)' [item]='p'  *ngFor="let p of products " class="box">
   
     </app-product-item>

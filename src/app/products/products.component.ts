@@ -1,7 +1,8 @@
+import { Product } from './../entities/Product';
+import { Observable } from 'rxjs/Rx';
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-import { Product } from "../entities/Product"
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
@@ -12,6 +13,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class ProductsComponent implements OnInit {
 
+  productsObservable: Observable<Response>;
   products: Array<Product> = new Array<Product>();
 
   constructor(private http: Http) {
@@ -29,11 +31,31 @@ export class ProductsComponent implements OnInit {
     //   "Samsung Galaxy Note 5 /Note 4/S5-32/16GB-White Gold Blue Unlocke",
     //   900,"note5.jpg")
 
-    this.http.get("http://localhost:3000/products")
-      .toPromise()
-      .then((res: Response) => {
-        this.products = res.json();
-      })
+    this.productsObservable = this
+      .http
+      .get("https://jbmd-store.azurewebsites.net/products")
+
+
+    // var promise = this.http
+    //   .get("https://jbmd-store.azurewebsites.net/products")
+    //   .toPromise();
+
+    //   promise.then((res)=>{
+    //       console.log("http call ended");
+    //       this.products= res.json();
+
+    //   },(err)=>{
+
+    //   })
+    //   console.log("line 42")
+
+
+
+    // this.http.get("https://jbmd-store.azurewebsites.net/products")
+    //   .toPromise()
+    //   .then((res: Response) => {
+    //     this.products = res.json();
+    //   })
   }
 
   ngOnInit() {
@@ -45,6 +67,14 @@ export class ProductsComponent implements OnInit {
     this.selectedProduct = item;
 
   }
+
+  getItems(){
+    this.productsObservable
+    .subscribe(r=>{
+      this.products=r.json();
+    })
+  }
+
 
 
   addProdcut(id, title, desc, price, img): void {

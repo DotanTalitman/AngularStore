@@ -4,12 +4,14 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductItemComponent } from './product-item/product-item.component';
+import { DataCompComponent } from './data-comp/data-comp.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductsComponent,
-    ProductItemComponent
+    ProductItemComponent,
+    DataCompComponent
   ],
   imports: [
     BrowserModule,HttpModule
